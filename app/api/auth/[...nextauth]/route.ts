@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
-export const authOptions: NextAuthOptions = {
+const authOption: NextAuthOptions = {
     session: {
         strategy: "jwt"
     },
@@ -13,6 +13,6 @@ export const authOptions: NextAuthOptions = {
     ]
 }
 
-const handler = NextAuth(authOptions)
+const handler = NextAuth(authOption)
 
 export { handler as GET, handler as POST }
