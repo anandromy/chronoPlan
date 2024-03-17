@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model User {
+  id    String  @id @default(dbgenerated("concat('usr_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  email String @unique
+  name  String?
+  avatar String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tasks Task[]
+  clients ClientsAndUsers[]
+}
+
+model Client {
+  id String  @id @default(dbgenerated("concat('cli_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  projects Project[]
+  tasks Task[]
+  users ClientsAndUsers[]
+}
+
+model Project {
+  id String @id @default(dbgenerated("concat('prj_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clientId String
+  client Client @relation(fields: [clientId], references: [id])
+
+  tasks Task[]
+}
+
+model Task {
+  id String @id @default(dbgenerated("concat('tsk_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+  name String
+  createdAr DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectId String
+  project Project @relation(fields: [projectId], references: [id])
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  clientId String
+  client Client @relation(fields: [clientId], references: [id])
+}
+
+model ClientsAndUsers {
+  id String @id @default(dbgenerated("concat('cu_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
+
+  clientId String
+  client Client @relation(fields: [clientId], references: [id])
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+}
