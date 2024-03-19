@@ -15,7 +15,7 @@ export const Navbar = async () => {
     return(
         <div className="py-3 px-6 flex flex-row justify-between">
             <Link href="/" className="text-3xl font-bold">Chrono</Link>
-            <Link href="#" className="py-2 px-3 font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] rounded-[var(--radius)]">Signout</Link>
+            <img src={`${user.user?.image}`} className="rounded-full w-10"/>
         </div>
     )
 }
