@@ -23,7 +23,7 @@ export const Projects = async () => {
                     <Link href="/addproject" className="hover:bg-[var(--muted)] px-3 py-4 rounded-[var(--radius)]">Create project</Link>
                     {
                         projects.map((project) => (
-                            <Link key={project.id} href={`/project/${project.id}`} className="hover:bg-[var(--muted)] px-3 py-4 rounded-[var(--radius)]">{project.name}</Link>
+                            <Link key={project.id} href={`/${project.id}`} className="hover:bg-[var(--muted)] px-3 py-4 rounded-[var(--radius)]">{project.name}</Link>
                         ))
                     }
                 </div>
