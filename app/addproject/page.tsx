@@ -4,8 +4,10 @@ import { ArrowLeft } from "lucide-react"
 import { getServerSession } from "next-auth"
 import { revalidatePath } from "next/cache"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 export default function AddProjectPage(){
+    
     return(
         <div className="container">
             <Link href="/home">
@@ -38,6 +40,7 @@ async function addProject(data :FormData){
     })
 
     revalidatePath('/home')
+    redirect(newProject.id)
 }
 
 
