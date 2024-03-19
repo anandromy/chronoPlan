@@ -2,9 +2,13 @@ import prisma from "@/lib/prisma"
 import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
-const authOption: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt"
+    },
+    pages: {
+        signIn:  '/auth/signin',
+        signOut: '/auth/signout'
     },
     providers: [
         GoogleProvider({
@@ -32,12 +36,11 @@ const authOption: NextAuthOptions = {
                     email: profile.email
                 }
             })
-            console.log(profile)
             return true
         }
     }
 }
 
-const handler = NextAuth(authOption)
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
