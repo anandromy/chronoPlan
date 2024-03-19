@@ -22,19 +22,9 @@ model User {
   updatedAt DateTime @updatedAt
 
   tasks Task[]
-  clients ClientsAndUsers[]
+  projects Project[]
 }
 
-model Client {
-  id String  @id @default(dbgenerated("concat('cli_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
-  name String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  projects Project[]
-  tasks Task[]
-  users ClientsAndUsers[]
-}
 
 model Project {
   id String @id @default(dbgenerated("concat('prj_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
@@ -42,8 +32,8 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  clientId String
-  client Client @relation(fields: [clientId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
 
   tasks Task[]
 }
@@ -51,24 +41,14 @@ model Project {
 model Task {
   id String @id @default(dbgenerated("concat('tsk_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
   name String
-  createdAr DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  startAt DateTime?
+  endAt DateTime? 
 
   projectId String
   project Project @relation(fields: [projectId], references: [id])
-
-  userId String
-  user User @relation(fields: [userId], references: [id])
-
-  clientId String
-  client Client @relation(fields: [clientId], references: [id])
-}
-
-model ClientsAndUsers {
-  id String @id @default(dbgenerated("concat('cu_', replace(cast(gen_random_uuid() as text), '-', ''))")) @db.Text
-
-  clientId String
-  client Client @relation(fields: [clientId], references: [id])
 
   userId String
   user User @relation(fields: [userId], references: [id])
