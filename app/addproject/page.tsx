@@ -1,11 +1,16 @@
 import { Input } from "@/components/ui/input"
 import prisma from "@/lib/prisma"
+import { ArrowLeft } from "lucide-react"
 import { getServerSession } from "next-auth"
 import { revalidatePath } from "next/cache"
+import Link from "next/link"
 
 export default function AddProjectPage(){
     return(
         <div className="container">
+            <Link href="/home">
+                <ArrowLeft size={40} className="rounded-full hover:bg-[var(--muted)] text-[var(--primary)] p-2"/>
+            </Link>
             <form action={addProject} className="flex flex-col gap-5 justify-center items-stretch w-1/2 mx-auto min-w-[450px] max-w-[1200px] p-6">
                 <label htmlFor="name">Project Name</label>
                 <Input required aria-required name="name" />
