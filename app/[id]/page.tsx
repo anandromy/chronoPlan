@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input"
 import prisma from "@/lib/prisma"
 import { Todos } from "@/components/Todos"
 import { Plus } from "lucide-react"
+import Link from "next/link"
 
 type ProjectPageParams = {
     params: {
@@ -36,9 +37,9 @@ const ProjectPage = async ({ params }: ProjectPageParams) => {
                 <div className="hover:bg-[var(--muted)] rounded-[var(--radius)] px-6 py-3">
                     <div className="flex flex-row items-center gap-2">
                         <h1 className="text-lg">Todos</h1>
-                        <button className="hover:bg-[var(--muted)] p-2 rounded-[var(--radius)]">
+                        <Link href={`/${project?.id}/addtask`} title="Add task" className="hover:bg-[var(--muted)] p-2 rounded-[var(--radius)]">
                             <Plus size={20}/>
-                        </button>
+                        </Link>
                     </div>
                     <Todos projectId={project?.id || ''}/>
                 </div>
