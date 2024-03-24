@@ -44,8 +44,11 @@ model Task {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  startAt DateTime?
-  endAt DateTime? 
+  startDate DateTime?
+  dueDate DateTime? 
+
+  startTime DateTime?
+  dueTime DateTime?
 
   projectId String
   project Project @relation(fields: [projectId], references: [id])
